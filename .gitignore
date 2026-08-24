@@ -1,0 +1,4 @@
+.dr-work/
+*.tmp
+.env
+.DS_Store
