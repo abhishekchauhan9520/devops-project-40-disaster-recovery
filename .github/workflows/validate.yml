@@ -1,0 +1,22 @@
+name: DR Validation
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Test DR simulation
+        run: bash tests/test-dr.sh
+      - name: Validate report JSON
+        run: python -m json.tool .dr-work/recovery-report.json >/dev/null
